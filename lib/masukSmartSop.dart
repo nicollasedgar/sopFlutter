@@ -15,13 +15,13 @@ class _HomeState extends State<Home> {
   Dio dio = new Dio();
 
   // Method Customize
-  Future postData() async {
+  Future postData(dynamic data) async {
     // final String pathUrl = 'https://jsonplaceholder.typicode.com/posts';
     final String pathUrl = 'http://10.0.2.2:3000/add';
 
-    dynamic data = {
-      'nama_perawat': 'Sena with flutter',
-    };
+    // dynamic data = {
+    //   'nama_perawat': 'Sena with flutter',
+    // };
     var response = await dio.post(pathUrl,
         data: data,
         options: Options(headers: {
@@ -34,9 +34,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     // Controller
-    TextEditingController input1 = TextEditingController();
-    TextEditingController input2 = TextEditingController();
-    TextEditingController input3 = TextEditingController();
+    TextEditingController nama_perawat_ctrl = TextEditingController();
+    TextEditingController nama_pasien_ctrl = TextEditingController();
+    TextEditingController nomor_rm_ctrl = TextEditingController();
 
     // root container
     Widget buildContainer(var teks) {
@@ -89,9 +89,9 @@ class _HomeState extends State<Home> {
                 indent: 20,
                 endIndent: 20,
               ),
-              buildTF('Nama Perawat', input1),
-              buildTF('Nama Pasien', input2),
-              buildTF('Nomor RM', input3),
+              buildTF('Nama Perawat', nama_perawat_ctrl),
+              buildTF('Nama Pasien', nama_pasien_ctrl),
+              buildTF('Nomor RM', nomor_rm_ctrl),
               SizedBox(
                 height: 30,
               ),
@@ -103,7 +103,13 @@ class _HomeState extends State<Home> {
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                 onPressed: () async {
                   print('Posting data...');
-                  await postData().then((value) {
+                  dynamic _dataPost = {
+                    'nama_perawat': nama_perawat_ctrl.text,
+                    'nama_pasien': nama_pasien_ctrl.text,
+                    'nomor_rm': nomor_rm_ctrl.text,
+                  };
+
+                  await postData(_dataPost).then((value) {
                     var _id = value['id'];
                     print(value['id']);
                     Navigator.push(

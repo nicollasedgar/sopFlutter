@@ -77,7 +77,7 @@ class _HomeState extends State<Daftar> {
               children: [
                 Center(
                   child: Text(
-                    "SMART SOP",
+                    "SMART SOP \n with id = $_id",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
