@@ -7,31 +7,31 @@ import 'package:smart_sop/sopLuka/pengertian.dart';
 import 'package:smart_sop/sopObservasi/pengertian.dart';
 
 class Daftar extends StatefulWidget {
+  final dynamic id;
+  const Daftar({@required this.id});
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Daftar> {
+  // Variable Private
+  var _id;
   var a = '';
+
+  // Method Customize
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _id = widget.id;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Controller
     TextEditingController input1 = TextEditingController();
     TextEditingController input2 = TextEditingController();
     TextEditingController input3 = TextEditingController();
-
-    // root container
-    // Widget buildContainer(var teks) {
-    //   return Container(
-    //     color: Colors.indigo,
-    //     margin: EdgeInsets.all(10),
-    //     height: 50,
-    //     child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.stretch,
-    //       children: [Text(teks)],
-    //     ),
-    //   );
-    // }
 
     // widget text field
     Widget buildTF(var ht, TextEditingController ctrl) {
@@ -58,8 +58,7 @@ class _HomeState extends State<Daftar> {
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => hal));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => hal));
         },
         child: Text(teks),
       );
@@ -78,9 +77,9 @@ class _HomeState extends State<Daftar> {
               children: [
                 Center(
                   child: Text(
-                  "SMART SOP",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
+                    "SMART SOP",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Divider(
                   color: Colors.grey,

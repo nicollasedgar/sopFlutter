@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'terimadata.dart';
 import 'daftarSmartSop.dart';
 import 'constants.dart';
+import 'package:dio/dio.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,7 +10,27 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  // Variable
   var a = '';
+  Dio dio = new Dio();
+
+  // Method Customize
+  Future postData() async {
+    // final String pathUrl = 'https://jsonplaceholder.typicode.com/posts';
+    final String pathUrl = 'http://10.0.2.2:3000/add';
+
+    dynamic data = {
+      'nama_perawat': 'Sena with flutter',
+    };
+    var response = await dio.post(pathUrl,
+        data: data,
+        options: Options(headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        }));
+
+    return response.data;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Controller
@@ -80,36 +101,22 @@ class _HomeState extends State<Home> {
                     padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                     textStyle:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Daftar()),
-                  );
+                onPressed: () async {
+                  print('Posting data...');
+                  await postData().then((value) {
+                    var _id = value['id'];
+                    print(value['id']);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Daftar(
+                                id: _id,
+                              )),
+                    );
+                  });
                 },
                 child: Text("Masuk"),
               ),
-              // RaisedButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => Hal2(
-              //                 a: input1.text,
-              //                 b: input2.text,
-              //               )),
-              //     );
-              //   },
-              //   child: Text("KIRIM DATA"),
-              // ),
-              // SizedBox(
-              //   height: 30,
-              // ),
-              // Center(
-              //   child: Text(
-              //     (a == '') ? 'Data Kosong' : a,
-              //     style: TextStyle(fontSize: 50),
-              //   ),
-              // )
             ],
           ),
         ),
