@@ -11,6 +11,8 @@ import 'package:smart_sop/constants.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PengertianInfus extends StatefulWidget {
+  final dynamic id;
+  const PengertianInfus({this.id});
   @override
   State<PengertianInfus> createState() => _PengertianInfusState();
 }
@@ -25,9 +27,12 @@ class _PengertianInfusState extends State<PengertianInfus> {
       appBar: AppBar(
         backgroundColor: cPurple,
         iconTheme: IconThemeData(color: cYellow),
-        title: Text("Pemberian Infus", style: TextStyle(color: cYellow),),
+        title: Text(
+          "Pemberian Infus",
+          style: TextStyle(color: cYellow),
+        ),
       ),
-      endDrawer: MainDrawer(),
+      endDrawer: MainDrawer(id: widget.id),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -35,13 +40,16 @@ class _PengertianInfusState extends State<PengertianInfus> {
             child: Column(
               children: [
                 Text(
-                  "Pengertian",
+                  "Pengertian \n with id = ${widget.id}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
-                    "Memasukkan cairan atau obat langsung melalui pembuluh darah vena dalam jumlah dan waktu tertentu dengan menggunakan infus set",
-                    style: TextStyle(fontSize: 15),),
+                  "Memasukkan cairan atau obat langsung melalui pembuluh darah vena dalam jumlah dan waktu tertentu dengan menggunakan infus set",
+                  style: TextStyle(fontSize: 15),
+                ),
               ],
             ),
           ),

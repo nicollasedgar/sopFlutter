@@ -11,6 +11,9 @@ import 'package:smart_sop/constants.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PengertianObservasi extends StatefulWidget {
+  final dynamic id;
+  const PengertianObservasi({this.id});
+
   @override
   State<PengertianObservasi> createState() => _PengertianObservasiState();
 }
@@ -30,7 +33,7 @@ class _PengertianObservasiState extends State<PengertianObservasi> {
           style: TextStyle(color: cYellow),
         ),
       ),
-      endDrawer: MainDrawer(),
+      endDrawer: MainDrawer(id: widget.id),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -38,7 +41,7 @@ class _PengertianObservasiState extends State<PengertianObservasi> {
             child: Column(
               children: [
                 Text(
-                  "Pengertian",
+                  "Pengertian \n with id = ${widget.id}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 SizedBox(

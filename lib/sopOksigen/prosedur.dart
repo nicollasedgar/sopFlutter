@@ -8,47 +8,76 @@
 import 'package:flutter/material.dart';
 import 'package:smart_sop/constants.dart';
 import 'package:smart_sop/sopOksigen/mainDrawer.dart';
+import 'package:dio/dio.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class Prosedur extends StatefulWidget {
+  final dynamic id;
+  const Prosedur({this.id});
   @override
   State<Prosedur> createState() => _ProsedurState();
 }
 
 /// This is the private State class that goes with Prosedur.
 class _ProsedurState extends State<Prosedur> {
-  String data1,
-      data2,
-      data3,
-      data4,
-      data5,
-      data6,
-      data7,
-      data8,
-      data9,
-      data10,
-      data11,
-      data12,
-      data13;
-  String hasil;
+  // Variable
+  String data;
+  String urut1,
+      urut2,
+      urut3,
+      urut4,
+      urut5,
+      urut6,
+      urut7,
+      urut8,
+      urut9,
+      urut10,
+      urut11,
+      urut12;
+
+  Dio dio = new Dio();
+
+  // Method Customize
+  Future postData(dynamic data) async {
+    final String pathUrl = 'http://10.0.2.2:3000/sop_oksigen';
+
+    var response = await dio.post(pathUrl,
+        data: data,
+        options: Options(headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        }));
+
+    return response.data;
+  }
+
+  void ubahValue(String value) {
+    setState(() {
+      data = value;
+    });
+  }
 
   @override
-  void initState() {
-    super.initState();
-    data1 = "";
-    data2 = "";
-    data3 = "";
-    data4 = "";
-    data5 = "";
-    data6 = "";
-    data7 = "";
-    data8 = "";
-    data9 = "";
-    data10 = "";
-    data11 = "";
-    data12 = "";
-    data13 = "";
-}
+  Widget buildCard(var teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(teks),
+          RadioListTile(
+              value: 1,
+              title: Text("Sudah"),
+              groupValue: data,
+              onChanged: null),
+          RadioListTile(
+              value: 0,
+              title: Text("Belum"),
+              groupValue: data,
+              onChanged: null),
+        ],
+      )),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,204 +102,24 @@ class _ProsedurState extends State<Prosedur> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Persiapan Alat",
+                        "Persiapan Alat with id : ${widget.id}",
                         style: TextStyle(fontSize: 20),
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Tabung O2 lengkap dengan manometer"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data1,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data1 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data1,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data1 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Mengukur aliran flowmeter"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data2,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data2 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data2,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data2 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Botol pelembab berisi air steril/ aquadest"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data3,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data3 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data3,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data3 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Selang O2"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data4,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data4 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data4,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data4 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Plester"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data5,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data5 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data5,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data5 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Kapas Alkohol"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data6,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data6 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data6,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data6 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      // buildCard("Tabung O2 lengkap dengan manometer"),
-                      // buildCard("Mengukur aliran flowmeter"),
-                      // buildCard("Botol pelembab berisi air steril/ aquadest"),
-                      // buildCard("Selang O2"),
-                      // buildCard("Plester"),
-                      // buildCard("Kapas Alkohol"),
+                      buildCard1("Tabung O2 lengkap dengan manometer"),
+                      SizedBox(height: 5),
+                      buildCard2("Mengukur aliran flowmeter"),
+                      SizedBox(height: 5),
+                      buildCard3("Botol pelembab berisi air steril/ aquadest"),
+                      SizedBox(height: 5),
+                      buildCard4("Selang O2"),
+                      SizedBox(height: 5),
+                      buildCard5("Plester"),
+                      SizedBox(height: 5),
+                      buildCard6("Kapas Alkohol"),
+                      SizedBox(height: 5),
                       SizedBox(
                         height: 20,
                       ),
@@ -281,250 +130,70 @@ class _ProsedurState extends State<Prosedur> {
                       SizedBox(
                         height: 20,
                       ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Atur posisi semifoler"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data7,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data7 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data7,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data7 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Selang dihubungkan"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data8,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data8 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data8,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data8 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Sebelum memasang slang pada hidung pasien slang dibersihkan dahulu dengankapasa alkohol"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data9,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data9 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data9,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data9 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Flowmeter dibuka, dicoba pada punggung tangan lalu ditutup kembali"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data10,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data10 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data10,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data10 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Memasang canul hidung, lakukan fixasi (plester"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data11,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data11 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data11,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data11 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Membuka flowmeter kembali dengan ukuran sesuai advis dokter "),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data12,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data12 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data12,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data12 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      Card(
-                        child: ListTile(
-                            title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Dokumentasi"),
-                            RadioListTile(
-                                value: "1",
-                                title: Text("Sudah"),
-                                groupValue: data13,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data13 = value;
-                                  });
-                                }),
-                            RadioListTile(
-                                value: "0",
-                                title: Text("Belum"),
-                                groupValue: data13,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  print("Radio $value");
-                                  setState(() {
-                                    data13 = value;
-                                  });
-                                }),
-                          ],
-                        )),
-                      ),
-                      // buildCard("Atur posisi semifoler"),
-                      // buildCard("Selang dihubungkan"),
-                      // buildCard("Sebelum memasang slang pada hidung pasien slang dibersihkan dahulu dengankapasa alkohol"),
-                      // buildCard("Flowmeter dibuka, dicoba pada punggung tangan lalu ditutup kembali"),
-                      // buildCard("Memasang canul hidung, lakukan fixasi (plester)"),
-                      // buildCard("Membuka flowmeter kembali dengan ukuran sesuai advis dokter "),
-                      // buildCard("Dokumentasi"),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              hasil = data1 +
-                                  data2 +
-                                  data3 +
-                                  data4 +
-                                  data5 +
-                                  data6 +
-                                  data7 +
-                                  data8 +
-                                  data9 +
-                                  data10 +
-                                  data11 +
-                                  data12 +
-                                  data13 ;
-                            });
-                            print(hasil);
+                      buildCard7("Atur posisi semifoler"),
+                      SizedBox(height: 5),
+                      buildCard8("Selang dihubungkan"),
+                      SizedBox(height: 5),
+                      buildCard9(
+                          "Sebelum memasang slang pada hidung pasien slang dibersihkan dahulu dengankapasa alkohol"),
+                      SizedBox(height: 5),
+                      buildCard10(
+                          "Flowmeter dibuka, dicoba pada punggung tangan lalu ditutup kembali"),
+                      SizedBox(height: 5),
+                      buildCard11(
+                          "Memasang canul hidung, lakukan fixasi (plester)"),
+                      SizedBox(height: 5),
+                      buildCard12(
+                          "Membuka flowmeter kembali dengan ukuran sesuai advis dokter "),
+                      SizedBox(height: 10),
+                      Center(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: cYellow,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 10),
+                            textStyle: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () async {
+                            try {
+                              var data = urut1 +
+                                  urut2 +
+                                  urut3 +
+                                  urut4 +
+                                  urut5 +
+                                  urut6 +
+                                  urut7 +
+                                  urut8 +
+                                  urut9 +
+                                  urut10 +
+                                  urut11 +
+                                  urut12;
+
+                              var dataPost = {'id': widget.id, 'data': data};
+
+                              await postData(dataPost).then((value) {
+                                if (value == true) {
+                                  final snackBar = SnackBar(
+                                    content: Text('Berhasil input data!'),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                                return;
+                              });
+                            } catch (e) {
+                              final snackBar = SnackBar(
+                                  content:
+                                      Text('Isi semua data terlebih dahulu!'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              return;
+                            }
                           },
-                          child: Text("Simpan Data")),
+                          child: Text("KIRIM"),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -533,6 +202,418 @@ class _ProsedurState extends State<Prosedur> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget buildCard1(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut1,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut1 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut1,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut1 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard2(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut2,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut2 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut2,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut2 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard3(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut3,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut3 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut3,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut3 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard4(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut4,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut4 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut4,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut4 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard5(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut5,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut5 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut5,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut5 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard6(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut6,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut6 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut6,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut6 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard7(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut7,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut7 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut7,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut7 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard8(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut8,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut8 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut8,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut8 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard9(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut9,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut9 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut9,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut9 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard10(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut10,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut10 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut10,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut10 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  /*
+  Stage 2 
+  */
+
+  Widget buildCard11(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut11,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut11 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut11,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut11 = value;
+              });
+            },
+          ),
+        ],
+      )),
+    );
+  }
+
+  Widget buildCard12(var _teks) {
+    return Card(
+      child: ListTile(
+          title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(_teks),
+          RadioListTile(
+            value: "1",
+            title: Text("Sudah"),
+            groupValue: urut12,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut12 = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: "0",
+            title: Text("Belum"),
+            groupValue: urut12,
+            onChanged: (value) {
+              print(value);
+              setState(() {
+                urut12 = value;
+              });
+            },
+          ),
+        ],
+      )),
     );
   }
 }

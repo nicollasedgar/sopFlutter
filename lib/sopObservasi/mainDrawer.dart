@@ -6,6 +6,9 @@ import 'package:smart_sop/sopObservasi/unitTerkait.dart';
 import 'package:smart_sop/sopObservasi/prosedur.dart';
 
 class MainDrawer extends StatelessWidget {
+  final dynamic id;
+  const MainDrawer({this.id});
+
   @override
   Widget build(BuildContext context) {
     @override
@@ -17,8 +20,7 @@ class MainDrawer extends StatelessWidget {
         ),
         title: Text(teks),
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => hal));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => hal));
         },
       );
     }
@@ -32,7 +34,7 @@ class MainDrawer extends StatelessWidget {
               color: cPurple,
             ),
             child: Text(
-              'Observasi Pasien Gawat',
+              'Observasi Pasien Gawat with id $id',
               style: TextStyle(
                 color: cYellow,
                 fontSize: 24,
@@ -41,7 +43,7 @@ class MainDrawer extends StatelessWidget {
           ),
           buildList("Pengertian", Icons.info, PengertianObservasi()),
           buildList("Tujuan", Icons.moving, Tujuan()),
-          buildList("Prosedur", Icons.settings, Prosedur()),
+          buildList("Prosedur", Icons.settings, Prosedur(id: id)),
           buildList("Unit terkait", Icons.link, UnitTerkait()),
         ],
       ),

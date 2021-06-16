@@ -16,12 +16,8 @@ class _HomeState extends State<Home> {
 
   // Method Customize
   Future postData(dynamic data) async {
-    // final String pathUrl = 'https://jsonplaceholder.typicode.com/posts';
     final String pathUrl = 'http://10.0.2.2:3000/add';
 
-    // dynamic data = {
-    //   'nama_perawat': 'Sena with flutter',
-    // };
     var response = await dio.post(pathUrl,
         data: data,
         options: Options(headers: {

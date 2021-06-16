@@ -11,6 +11,9 @@ import 'package:smart_sop/constants.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class PengertianBakar extends StatefulWidget {
+  final dynamic id;
+  const PengertianBakar({this.id});
+
   @override
   State<PengertianBakar> createState() => _PengertianBakarState();
 }
@@ -25,9 +28,12 @@ class _PengertianBakarState extends State<PengertianBakar> {
       appBar: AppBar(
         backgroundColor: cPurple,
         iconTheme: IconThemeData(color: cYellow),
-        title: Text("Perawatan Luka Bakar", style: TextStyle(color: cYellow),),
+        title: Text(
+          "Perawatan Luka Bakar",
+          style: TextStyle(color: cYellow),
+        ),
       ),
-      endDrawer: MainDrawer(),
+      endDrawer: MainDrawer(id: widget.id),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -35,13 +41,16 @@ class _PengertianBakarState extends State<PengertianBakar> {
             child: Column(
               children: [
                 Text(
-                  "Pengertian",
+                  "Pengertian \n with id = ${widget.id}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
-                    "Luka bakar adalah luka yang terjadi akibat sentuhan permukaan tubuh dengan benda-benda yang menghasilkan panas (misalnya : api, air panas, listrik) atau zat yang bersifat membakar (misalnya: asam kuat dan basa kuat).",
-                    style: TextStyle(fontSize: 15),),
+                  "Luka bakar adalah luka yang terjadi akibat sentuhan permukaan tubuh dengan benda-benda yang menghasilkan panas (misalnya : api, air panas, listrik) atau zat yang bersifat membakar (misalnya: asam kuat dan basa kuat).",
+                  style: TextStyle(fontSize: 15),
+                ),
               ],
             ),
           ),

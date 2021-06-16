@@ -54,9 +54,10 @@ class _HomeState extends State<Daftar> {
     Widget buildButton(var teks, var hal) {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: cYellow,
-            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-            textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          primary: cYellow,
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+          textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => hal));
         },
@@ -96,23 +97,24 @@ class _HomeState extends State<Daftar> {
                 SizedBox(
                   height: 30,
                 ),
-                buildButton("Perawatan luka", PengertianLuka()),
+                buildButton("Pemasangan infus", PengertianInfus(id: _id)),
                 SizedBox(
                   height: 30,
                 ),
-                buildButton("Pemasangan infus", PengertianInfus()),
+                buildButton("Perawatan luka", PengertianLuka(id: _id)),
                 SizedBox(
                   height: 30,
                 ),
-                buildButton("Memberikan oksigen", PengertianOksigen()),
+                buildButton("Memberikan oksigen", PengertianOksigen(id: _id)),
                 SizedBox(
                   height: 30,
                 ),
-                buildButton("Penanganan luka bakar", PengertianBakar()),
+                buildButton("Penanganan luka bakar", PengertianBakar(id: _id)),
                 SizedBox(
                   height: 30,
                 ),
-                buildButton("Observasi pasien gawat", PengertianObservasi()),
+                buildButton(
+                    "Observasi pasien gawat", PengertianObservasi(id: _id)),
               ],
             ),
           ),

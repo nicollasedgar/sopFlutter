@@ -8,6 +8,9 @@ import 'package:smart_sop/sopInfus/unitTerkait.dart';
 import 'package:smart_sop/sopInfus/prosedur.dart';
 
 class MainDrawer extends StatelessWidget {
+  final dynamic id;
+  const MainDrawer({this.id});
+
   @override
   Widget build(BuildContext context) {
     @override
@@ -19,8 +22,7 @@ class MainDrawer extends StatelessWidget {
         ),
         title: Text(teks),
         onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => hal));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => hal));
         },
       );
     }
@@ -34,7 +36,7 @@ class MainDrawer extends StatelessWidget {
               color: cPurple,
             ),
             child: Text(
-              'Pemasangan Infus',
+              'Pemasangan Infus with id: $id',
               style: TextStyle(
                 color: cYellow,
                 fontSize: 24,
@@ -45,7 +47,7 @@ class MainDrawer extends StatelessWidget {
           buildList("Tujuan", Icons.moving, Tujuan()),
           buildList("Kebijakan", Icons.security, Kebijakan()),
           buildList("Referensi", Icons.bookmark, Referensi()),
-          buildList("Prosedur", Icons.settings, Prosedur()),
+          buildList("Prosedur", Icons.settings, Prosedur(id: id)),
           buildList("Unit terkait", Icons.link, UnitTerkait()),
         ],
       ),
