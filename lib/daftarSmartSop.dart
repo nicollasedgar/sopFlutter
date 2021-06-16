@@ -68,7 +68,9 @@ class _HomeState extends State<Daftar> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        color: cWhite,
+        color: Color(0xff8F1AAA),
+        height: double.infinity,
+        width: double.infinity,
         child: Container(
           margin: EdgeInsets.all(30),
           child: Center(
@@ -78,7 +80,10 @@ class _HomeState extends State<Daftar> {
                 Center(
                   child: Text(
                     "SMART SOP \n with id = $_id",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: cWhite),
                   ),
                 ),
                 Divider(

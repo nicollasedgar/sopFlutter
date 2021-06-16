@@ -52,15 +52,43 @@ class _HomeState extends State<Home> {
     }
 
     // widget text field
-    Widget buildTF(var ht, TextEditingController ctrl) {
+    Widget buildTF(var ht, TextEditingController ctrl, IconData icon) {
       return TextField(
         controller: ctrl,
         decoration: InputDecoration(
-          // border: InputBorder.none,
-          contentPadding: EdgeInsets.only(top: 30),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(
+              Radius.circular(30),
+            ),
+          ),
+          prefixIcon: Icon(
+            icon,
+            color: Color(0XFFFFBE03),
+          ),
+          hintText: ht,
+          filled: true,
+          fillColor: Colors.grey[200],
+        ),
+      );
+    }
+
+    Widget buildTF2(var ht, TextEditingController ctrl) {
+      return TextField(
+        controller: ctrl,
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.all(Radius.circular(20))),
           icon: Icon(
             Icons.person,
-            color: cYellow,
+            color: Color(0XFFFFBE03),
           ),
           labelText: ht,
         ),
@@ -71,59 +99,108 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        color: cWhite,
+        color: Color(0xff8F1AAA),
+        height: double.infinity,
+        width: double.infinity,
         child: Container(
           margin: EdgeInsets.all(30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: Text("SMART SOP",
-                    style:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-              ),
-              Divider(
-                color: Colors.grey,
-                height: 20,
-                thickness: 1,
-                indent: 20,
-                endIndent: 20,
-              ),
-              buildTF('Nama Perawat', nama_perawat_ctrl),
-              buildTF('Nama Pasien', nama_pasien_ctrl),
-              buildTF('Nomor RM', nomor_rm_ctrl),
-              SizedBox(
-                height: 30,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: cYellow,
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                    textStyle:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-                onPressed: () async {
-                  print('Posting data...');
-                  dynamic _dataPost = {
-                    'nama_perawat': nama_perawat_ctrl.text,
-                    'nama_pasien': nama_pasien_ctrl.text,
-                    'nomor_rm': nomor_rm_ctrl.text,
-                  };
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Text("SMART SOP",
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0XFFEAECEA))),
+                ),
+                Divider(
+                  color: Colors.grey,
+                  height: 20,
+                  thickness: 1,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                buildTF('Nama Perawat', nama_perawat_ctrl, Icons.person),
+                SizedBox(
+                  height: 25,
+                ),
+                buildTF('Nama Pasien', nama_pasien_ctrl, Icons.person_add),
+                SizedBox(
+                  height: 25,
+                ),
+                buildTF('Nomor RM', nomor_rm_ctrl, Icons.house),
+                SizedBox(
+                  height: 25,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Color(0XFFFFBE03),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                      textStyle:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                  onPressed: () async {
+                    if (nama_perawat_ctrl.text.isEmpty ||
+                        nama_pasien_ctrl.text.isEmpty ||
+                        nomor_rm_ctrl.text.isEmpty) {
+                      final snackBar = SnackBar(
+                          content: Text('Isi semua data terlebih dahulu!'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      return;
+                    }
+                    ;
+                    print('Posting data...');
+                    dynamic _dataPost = {
+                      'nama_perawat': nama_perawat_ctrl.text,
+                      'nama_pasien': nama_pasien_ctrl.text,
+                      'nomor_rm': nomor_rm_ctrl.text,
+                    };
 
-                  await postData(_dataPost).then((value) {
-                    var _id = value['id'];
-                    print(value['id']);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Daftar(
-                                id: _id,
-                              )),
-                    );
-                  });
-                },
-                child: Text("Masuk"),
-              ),
-            ],
+                    await postData(_dataPost).then((value) {
+                      var _id = value['id'];
+                      print(value['id']);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Daftar(
+                                  id: _id,
+                                )),
+                      );
+                    });
+                  },
+                  child: Text(
+                    "Masuk",
+                    style: TextStyle(color: Color(0XFFEAECEA)),
+                  ),
+                ),
+                SizedBox(height: 25),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Color(0XFFFFBE03),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                      textStyle:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                  onPressed: () {
+                    final snackBar = SnackBar(content: Text('Button Pressed!'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    return;
+                  },
+                  child: Text(
+                    "Lihat Data",
+                    style: TextStyle(color: Color(0XFFEAECEA)),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       )),
