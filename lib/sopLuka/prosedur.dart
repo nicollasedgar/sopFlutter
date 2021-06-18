@@ -58,7 +58,7 @@ class _ProsedurState extends State<Prosedur> {
 
   // Method Customize
   Future postData(dynamic data) async {
-    final String pathUrl = 'http://10.0.2.2:3000/sop_luka';
+    final String pathUrl = 'https://senuyydev.herokuapp.com/sop_luka';
 
     var response = await dio.post(pathUrl,
         data: data,
