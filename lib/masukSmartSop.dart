@@ -95,7 +95,13 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        color: Color(0xff8F1AAA),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/nurse.jpg'),
+                fit: BoxFit.cover
+              )
+            ),
+        // color: Color(0xff8F1AAA),
         height: double.infinity,
         width: double.infinity,
         child: Container(
@@ -104,12 +110,23 @@ class _HomeState extends State<Home> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Center(
-                  child: Text("SMART SOP",
+                Row(children: [
+                  Divider(
+                    indent: 40,
+                    endIndent: 20,
+                  ),
+                  Image(image: AssetImage('images/stikes.png')),
+                  Text("SMART SOP",
                       style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                           color: Color(0XFFEAECEA))),
+                ]),
+                Center(
+                  child: Text(
+                    "Oleh : Arlin Woda S.Kep",
+                    style: TextStyle(fontSize: 15, color: Color(0XFFEAECEA)),
+                  ),
                 ),
                 Divider(
                   color: Colors.grey,
